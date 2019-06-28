@@ -61,8 +61,7 @@ namespace Tavisca.Bootcamp.LanguageBasics.Exercise1
                 for (int j = 0; j < dietPlans[i].Length; j++)
                 {
                     IndexListOfSelectedMeals = new List<int>();
-                    char DietRule = ((dietPlans[i].ToCharArray())[j]);
-                    switch (DietRule)
+                    switch (dietPlans[i][j])
                     {
                          case 'C' :         foreach (int k in IndicesListUnderConsideration)
                                                 if (max < carbs[k])
