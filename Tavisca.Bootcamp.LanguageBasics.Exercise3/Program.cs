@@ -2,7 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 
-namespace Tavisca.Bootcamp.LanguageBasics.Exercise3
+namespace Tavisca.Bootcamp.LanguageBasics.Exercise1
 {
     public static class Program
     {
@@ -44,105 +44,92 @@ namespace Tavisca.Bootcamp.LanguageBasics.Exercise3
             int[] output = new int[dietPlans.Length];
             int[] calories = new int[protein.Length];
 
+            List<int> IndexList = new List<int>();
 
             for (int i = 0; i < protein.Length; i++)
+            {
                 calories[i] = protein[i] * 5 + carbs[i] * 5 + fat[i] * 9;
+                IndexList.Add(i);
+            }
 
 
             for (int i = 0; i < dietPlans.Length; i++)
             {
-                List<int> temp = new List<int>();
-                List<int> List = new List<int>();
+                List<int> IndexListOfSelectedMeals = new List<int>();
+                var IndicesListUnderConsideration = IndexList;
                 int min = 10000, max = -1;
-                for (int j = 0; j < protein.Length; j++)
-                    List.Add(j);
                 for (int j = 0; j < dietPlans[i].Length; j++)
                 {
-                    temp = new List<int>();
-                    string tempDietPlan = dietPlans[i];
-                    if (tempDietPlan[j] == 'C')
+                    IndexListOfSelectedMeals = new List<int>();
+                    char DietRule = ((dietPlans[i].ToCharArray())[j]);
+                    switch (DietRule)
                     {
-                        foreach (int k in List)
-                            if (max < carbs[k])
-                                max = carbs[k];
-                        foreach (int k in List)
-                            if (max == carbs[k])
-                                temp.Add(k);
-                    }
-                    else if (tempDietPlan[j] == 'c')
-                    {
-                        foreach (int k in List)
-                            if (min > carbs[k])
-                                min = carbs[k];
-                        foreach (int k in List)
-                            if (min == carbs[k])
-                                temp.Add(k);
-                    }
-                    else if (tempDietPlan[j] == 'P')
-                    {
-                        foreach (int k in List)
-                            if (max < protein[k])
-                                max = protein[k];
-                        foreach (int k in List)
-                            if (max == protein[k])
-                                temp.Add(k);
-                    }
-                    else if (tempDietPlan[j] == 'p')
-                    {
-                        foreach (int k in List)
-                            if (min > protein[k])
-                                min = protein[k];
-                        foreach (int k in List)
-                            if (min == protein[k])
-                                temp.Add(k);
-                    }
-                    else if (tempDietPlan[j] == 'F')
-                    {
-                        foreach (int k in List)
-                            if (max < fat[k])
-                                max = fat[k];
-                        foreach (int k in List)
-                            if (max == fat[k])
-                                temp.Add(k);
-                    }
-                    else if (tempDietPlan[j] == 'f')
-                    {
+                         case 'C' :         foreach (int k in IndicesListUnderConsideration)
+                                                if (max < carbs[k])
+                                                     max = carbs[k];
+                                            foreach (int k in IndicesListUnderConsideration)
+                                                if (max == carbs[k])
+                                                    IndexListOfSelectedMeals.Add(k);
+                                            break;
+                         case 'c' :         foreach (int k in IndicesListUnderConsideration)
+                                                if (min > carbs[k])
+                                                     min = carbs[k];
+                                            foreach (int k in IndicesListUnderConsideration)
+                                                if (min == carbs[k])
+                                                    IndexListOfSelectedMeals.Add(k);
+                                            break;
 
-                        foreach (int k in List)
-                            if (min > fat[k])
-                                min = fat[k];
-                        foreach (int k in List)
-                            if (min == fat[k])
-                                temp.Add(k);
-                    }
-                    else if (tempDietPlan[j] == 'T')
-                    {
+                         case 'P' :         foreach (int k in IndicesListUnderConsideration)
+                                                if (max < protein[k])
+                                                    max = protein[k];
+                                            foreach (int k in IndicesListUnderConsideration)
+                                                if (max == protein[k])
+                                                    IndexListOfSelectedMeals.Add(k);
+                                            break;
 
-                        foreach (int k in List)
-                            if (max < calories[k])
-                                max = calories[k];
-                        foreach (int k in List)
-                            if (max == calories[k])
-                                temp.Add(k);
+                         case 'p' :         foreach (int k in IndicesListUnderConsideration)
+                                                if (min > protein[k])
+                                                    min = protein[k];
+                                            foreach (int k in IndicesListUnderConsideration)
+                                                if (min == protein[k])
+                                                    IndexListOfSelectedMeals.Add(k);
+                                            break;
+                         case 'F' :         foreach (int k in IndicesListUnderConsideration)
+                                                if (max < fat[k])
+                                                    max = fat[k];
+                                            foreach (int k in IndicesListUnderConsideration)
+                                                if (max == fat[k])
+                                                    IndexListOfSelectedMeals.Add(k);
+                                            break;
+                         case 'f' :         foreach (int k in IndicesListUnderConsideration)
+                                                if (min > fat[k])
+                                                    min = fat[k];
+                                            foreach (int k in IndicesListUnderConsideration)
+                                                if (min == fat[k])
+                                                    IndexListOfSelectedMeals.Add(k);
+                                            break;
+                         case 'T' :         foreach (int k in IndicesListUnderConsideration)
+                                                if (max < calories[k])
+                                                    max = calories[k];
+                                            foreach (int k in IndicesListUnderConsideration)
+                                                if (max == calories[k])
+                                                    IndexListOfSelectedMeals.Add(k);
+                                            break;
+                         case 't' :         foreach (int k in IndicesListUnderConsideration)
+                                                if (min > calories[k])
+                                                    min = calories[k];
+                                            foreach (int k in IndicesListUnderConsideration)
+                                                if (min == calories[k])
+                                                    IndexListOfSelectedMeals.Add(k);
+                                            break;
                     }
-                    else if (tempDietPlan[j] == 't')
-                    {
-
-                        foreach (int k in List)
-                            if (min > calories[k])
-                                min = calories[k];
-                        foreach (int k in List)
-                            if (min == calories[k])
-                                temp.Add(k);
-                    }
-                    if (temp.Count == 1)
+                    if (IndexListOfSelectedMeals.Count == 1)
                         break;
-                    List = temp;
+                    IndicesListUnderConsideration = IndexListOfSelectedMeals;
                 }
-                if (dietPlans[i] == "")
-                    output[i] = 0;
-                else
-                    output[i] = temp[0];
+                if(dietPlans[i].Equals(""))
+                    IndexListOfSelectedMeals.Add(0);
+                output[i] = IndexListOfSelectedMeals[0];
             }
             return output;
         }
